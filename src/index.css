@@ -1,0 +1,137 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html {
+    @apply scroll-smooth;
+  }
+  
+  body {
+    @apply bg-white dark:bg-dark-300 text-gray-900 dark:text-gray-100 transition-colors duration-300;
+    overflow-x: hidden;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    @apply font-semibold leading-tight;
+  }
+
+  h1 {
+    @apply text-4xl sm:text-5xl md:text-6xl;
+  }
+
+  h2 {
+    @apply text-3xl sm:text-4xl;
+  }
+
+  h3 {
+    @apply text-2xl sm:text-3xl;
+  }
+
+  p {
+    @apply leading-relaxed;
+  }
+}
+
+@layer components {
+  .section {
+    @apply py-16 md:py-24;
+  }
+
+  .container-custom {
+    @apply container mx-auto px-4 sm:px-6 lg:px-8 max-w-7xl;
+  }
+
+  .btn-primary {
+    @apply px-6 py-3 bg-primary-500 text-white rounded-lg font-medium hover:bg-primary-600 
+    focus:outline-none focus:ring-2 focus:ring-primary-500 focus:ring-offset-2 
+    transition-all duration-300 shadow-md;
+  }
+
+  .glass {
+    @apply backdrop-blur-md bg-white/10 dark:bg-dark-200/50 border border-white/20 dark:border-gray-800/50;
+  }
+
+  .card {
+    @apply rounded-2xl overflow-hidden shadow-lg transition-all duration-300 hover:shadow-xl;
+  }
+
+  .skill-bar {
+    @apply h-2 rounded-full bg-gray-200 dark:bg-dark-100 overflow-hidden;
+  }
+
+  .skill-progress {
+    @apply h-full rounded-full bg-gradient-to-r from-primary-400 to-accent-500;
+  }
+}
+
+/* Custom cursor styles */
+.custom-cursor {
+  @apply fixed w-6 h-6 rounded-full bg-primary-500/30 pointer-events-none z-50 transform -translate-x-1/2 -translate-y-1/2 mix-blend-difference;
+  transition: transform 0.15s ease, width 0.2s ease, height 0.2s ease, background-color 0.2s ease;
+}
+
+.custom-cursor.active {
+  @apply w-10 h-10 bg-accent-500/40;
+  transform: translate(-50%, -50%) scale(1.5);
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+::-webkit-scrollbar-track {
+  @apply bg-gray-100 dark:bg-dark-200;
+}
+
+::-webkit-scrollbar-thumb {
+  @apply bg-primary-200 dark:bg-primary-700 rounded-full;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  @apply bg-primary-300 dark:bg-primary-600;
+}
+
+/* Smooth animations */
+.fade-in {
+  animation: fadeIn 0.6s ease-in;
+}
+
+@keyframes fadeIn {
+  0% { opacity: 0; }
+  100% { opacity: 1; }
+}
+
+.slide-up {
+  animation: slideUp 0.6s ease-out;
+}
+
+@keyframes slideUp {
+  0% { 
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  100% { 
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Hover effects */
+.neon-border:hover {
+  @apply border-accent-400 shadow-neon;
+}
+
+.hover-scale {
+  transition: transform 0.3s ease;
+}
+
+.hover-scale:hover {
+  transform: scale(1.03);
+}
+
+/* Gradient text */
+.gradient-text {
+  @apply bg-clip-text text-transparent bg-gradient-to-r from-primary-400 to-accent-500;
+}
