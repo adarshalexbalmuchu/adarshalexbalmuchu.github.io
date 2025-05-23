@@ -42,7 +42,7 @@ const Contact: React.FC = () => {
   const yourEmail = "adarshalex.balmuchui23@iimranchi.ac.in"; // [cite: 1]
   const yourPhone = "+91-7295029691"; // [cite: 1]
   const yourLocation = "Ranchi, India"; // Based on IIM Ranchi, adjust if preferred
-  const yourLinkedin = "YOUR_LINKEDIN_LINK_HERE"; // Replace
+  const yourLinkedin = "https://www.linkedin.com/in/adarshalexbalmuhu/"; // Updated LinkedIn link
   const yourGithub = "YOUR_GITHUB_LINK_HERE"; // Replace
 
   const contactInfo = [

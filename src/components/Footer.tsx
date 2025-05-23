@@ -17,7 +17,7 @@ const Footer: React.FC = () => {
   const yourName = "ADARSH ALEX BALMUCHU";
   const yourEmail = "adarshalex.balmuchui23@iimranchi.ac.in";
   const githubUrl = "https://github.com/Adarsh17115-gh";
-  const linkedinUrl = "https://www.linkedin.com/in/adarsh-alex-balmuchu-07639726a/";
+  const linkedinUrl = "https://www.linkedin.com/in/adarshalexbalmuhu/";
   const twitterUrl = "https://x.com/AdarshBalmuchu";
 
   const scrollToTop = () => {
