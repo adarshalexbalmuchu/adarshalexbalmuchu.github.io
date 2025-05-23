@@ -16,7 +16,7 @@ import {
 const Footer: React.FC = () => {
   const yourName = "ADARSH ALEX BALMUCHU";
   const yourEmail = "adarshalex.balmuchui23@iimranchi.ac.in";
-  const githubUrl = "https://github.com/Adarsh17115-gh";
+  const githubUrl = "https://github.com/adarshalexbalmuchu";
   const linkedinUrl = "https://www.linkedin.com/in/adarshalexbalmuhu/";
   const twitterUrl = "https://x.com/AdarshBalmuchu";
 

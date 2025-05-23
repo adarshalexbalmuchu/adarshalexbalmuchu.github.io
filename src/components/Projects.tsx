@@ -15,7 +15,7 @@ const projectsData = [
     image: "/images/proj_1.jpg", 
     tags: ["React", "TypeScript", "Tailwind CSS", "Full-Stack", "AI-assisted"],
     link: "YOUR_FITLIFE360_LIVE_LINK_HERE", // Replace with actual link
-    github: "https://github.com/Adarsh17115-gh/FitLife360" 
+    github: "https://github.com/adarshalexbalmuchu/FitLife360" 
   },
   {
     id: 2,

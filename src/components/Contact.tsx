@@ -43,7 +43,7 @@ const Contact: React.FC = () => {
   const yourPhone = "+91-7295029691"; // [cite: 1]
   const yourLocation = "Ranchi, India"; // Based on IIM Ranchi, adjust if preferred
   const yourLinkedin = "https://www.linkedin.com/in/adarshalexbalmuhu/"; // Updated LinkedIn link
-  const yourGithub = "YOUR_GITHUB_LINK_HERE"; // Replace
+  const yourGithub = "https://github.com/adarshalexbalmuchu"; // Updated GitHub link
 
   const contactInfo = [
     { icon: <Mail className="w-5 h-5 text-primary-500" />, text: yourEmail, href: `mailto:${yourEmail}` }, // [cite: 1]
