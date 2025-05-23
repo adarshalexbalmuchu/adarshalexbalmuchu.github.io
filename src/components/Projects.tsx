@@ -24,7 +24,7 @@ const projectsData = [
     image: "/images/proj_3.png", 
     tags: ["E-commerce", "Responsive Design", "Payment Gateway", "Inventory Management", "AI-assisted"],
     link: null, // Removed the demo link for the e-commerce project
-    // github: "YOUR_ECOMMERCE_GITHUB_LINK_HERE" // Replace with actual link or remove if none
+    // github: "YOUR_ECOMMERCE_GITHUB_LINK_HERE" // Remove if not used
   },
 ];
 
@@ -68,7 +68,7 @@ const Projects: React.FC = () => {
 
   // Destructure theme from useTheme hook to make it available in this component
   const { theme } = useTheme(); 
-  const yourGithubUsername = "Adarsh17115-gh"; // Your GitHub username for the "View More" link
+  const yourGithubUsername = "adarshalexbalmuchu"; // Your GitHub username for the "View More" link
 
   return (
     <section id="projects" ref={ref} className="section bg-gray-100 dark:bg-dark-300 py-20 md:py-28">

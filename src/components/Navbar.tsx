@@ -9,7 +9,7 @@ const Navbar: React.FC = () => {
   const { theme, toggleTheme } = useTheme();
 
   // Replace with your actual GitHub username
-  const yourGithubUsername = "Adarsh17115-gh"; // From your GitHub repo name, please verify
+  const yourGithubUsername = "adarshalexbalmuchu"; // From your GitHub repo name, please verify
 
   const navLinks = [
     { name: 'Home', href: '#home' },

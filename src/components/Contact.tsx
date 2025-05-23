@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { motion } from 'framer-motion';
 import { useInView } from 'react-intersection-observer';
-import { Send, MapPin, Phone, Mail, Linkedin, Github as GithubIcon } from 'lucide-react'; // Added Linkedin, GithubIcon
+import { Send, MapPin, Phone, Mail, Linkedin, Github as GithubIcon } from 'lucide-react';
 
 const Contact: React.FC = () => {
   const [formData, setFormData] = useState({
