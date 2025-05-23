@@ -9,7 +9,7 @@ const Hero: React.FC = () => {
   const tagline1 = "IPM Student at IIM Ranchi"; // [cite: 1]
   const tagline2 = "Marketing, Content Creation & Technical Development"; // [cite: 1, 2]
   const briefIntro = "Passionate about leveraging creativity and analytical skills to deliver impactful marketing outcomes with a strong commitment to community development and social impact."; // [cite: 3]
-  const githubLink = "https://github.com/Adarsh17115-gh"; // Replace with your actual GitHub link from CV [cite: 1]
+  const githubLink = "https://github.com/adarshalexbalmuchu"; // Updated GitHub link
   const linkedinLink = "https://www.linkedin.com/in/adarshalexbalmuhu/"; // Updated LinkedIn link
   const emailAddress = "adarshalex.balmuchui23@iimranchi.ac.in"; // [cite: 1]
   const profileImageUrl = "images/about-me.png"; // Replace with your desired profile image URL
