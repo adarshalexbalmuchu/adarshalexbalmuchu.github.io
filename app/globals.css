@@ -126,5 +126,48 @@
   }
   html {
     @apply font-sans;
+    scroll-behavior: smooth;
   }
+}
+
+/* Portfolio theme */
+:root {
+  --p-bg: #0d0a1a;
+  --p-text: #f5f0eb;
+  --p-accent: #e8647a;
+  --p-muted: rgba(245, 240, 235, 0.45);
+}
+
+.portfolio-root {
+  background: var(--p-bg);
+  color: var(--p-text);
+  font-family: var(--font-inter), sans-serif;
+  cursor: none;
+}
+
+.portfolio-root a,
+.portfolio-root button,
+.portfolio-root [role="button"] {
+  cursor: none;
+}
+
+.font-cormorant {
+  font-family: var(--font-cormorant), serif;
+}
+
+.chapter-label {
+  font-family: var(--font-inter), sans-serif;
+  font-size: 0.65rem;
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  color: var(--p-muted);
+}
+
+@keyframes blink {
+  0%, 100% { opacity: 1; }
+  50%       { opacity: 0; }
+}
+
+.cursor-blink {
+  animation: blink 1.1s step-start infinite;
 }
