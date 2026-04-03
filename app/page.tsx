@@ -3,7 +3,6 @@ import ChapterTwo from "@/components/chapters/ChapterTwo";
 import ChapterThree from "@/components/chapters/ChapterThree";
 import ChapterFour from "@/components/chapters/ChapterFour";
 import ChapterFive from "@/components/chapters/ChapterFive";
-import ChapterSix from "@/components/chapters/ChapterSix";
 import ChapterNav from "@/components/ChapterNav";
 import Footer from "@/components/Footer";
 import Hero from "@/components/Hero";
@@ -24,8 +23,7 @@ export default function Home() {
       <ChapterThree />
       <ChapterFour />
       <ChapterFive />
-      <ChapterSix />
-      <Footer />
+<Footer />
     </div>
   );
 }

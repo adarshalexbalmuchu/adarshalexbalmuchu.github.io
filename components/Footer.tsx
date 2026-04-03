@@ -1,6 +1,7 @@
 'use client';
 
 import Image from 'next/image';
+import Link from 'next/link';
 
 export default function Footer() {
   return (
@@ -9,10 +10,10 @@ export default function Footer() {
       className="flex flex-col relative"
       style={{ background: '#080b14' }}
     >
-      {/* Full-width image panel */}
-      <div className="relative w-full" style={{ height: '50vh' }}>
+      {/* Full-width image panel — no gap above */}
+      <div className="relative w-full" style={{ height: 'clamp(320px, 70vh, 80vh)', marginTop: 0 }}>
         <Image
-          src="/footer.jpg"
+          src="/footer.webp"
           alt=""
           fill
           className="object-cover"
@@ -26,11 +27,11 @@ export default function Footer() {
       </div>
 
       {/* Main content */}
-      <div className="flex flex-col items-center justify-center px-8 relative" style={{ paddingTop: 40, paddingBottom: 80 }}>
-        <div className="text-center">
+      <div className="flex flex-col items-center justify-center px-4 md:px-8 relative" style={{ paddingTop: 40, paddingBottom: 80 }}>
+        <div className="text-center w-full">
 
           <h2
-            className="font-cormorant text-6xl md:text-7xl font-light"
+            className="font-cormorant text-3xl md:text-7xl font-light"
             style={{ color: 'var(--p-text)', letterSpacing: '0.02em', lineHeight: 1.15, marginBottom: 24 }}
           >
             Let's build something.
@@ -38,7 +39,7 @@ export default function Footer() {
 
           <a
             href="mailto:adarshalex.balmuchui23@iimranchi.ac.in"
-            className="inline-block transition-colors duration-300"
+            className="inline-block transition-colors duration-300 break-all"
             style={{
               fontFamily: 'var(--font-inter)',
               fontSize: '0.875rem',
@@ -53,9 +54,9 @@ export default function Footer() {
             adarshalex.balmuchui23@iimranchi.ac.in
           </a>
 
-          {/* Social links */}
+          {/* Social links — vertical on mobile, horizontal on desktop */}
           <div
-            className="flex items-center justify-center gap-12"
+            className="flex flex-col md:flex-row items-center justify-center gap-6 md:gap-12 mt-2"
             style={{
               fontFamily: 'var(--font-inter)',
               fontSize: '0.7rem',
@@ -65,15 +66,15 @@ export default function Footer() {
             }}
           >
             {[
-              { label: 'LinkedIn',  href: 'https://linkedin.com' },
-              { label: 'GitHub',    href: 'https://github.com/adarshalexbalmuchu' },
-              { label: 'Portfolio', href: '#hero' },
-            ].map(({ label, href }) => (
+              { label: 'LinkedIn',  href: 'https://linkedin.com',                    external: true },
+              { label: 'GitHub',    href: 'https://github.com/adarshalexbalmuchu',   external: true },
+              { label: 'Portfolio', href: '#hero',                                   external: false },
+            ].map(({ label, href, external }) => (
               <a
                 key={label}
                 href={href}
-                target={href.startsWith('http') ? '_blank' : undefined}
-                rel={href.startsWith('http') ? 'noopener noreferrer' : undefined}
+                target={external ? '_blank' : undefined}
+                rel={external ? 'noopener noreferrer' : undefined}
                 className="transition-colors duration-300"
                 style={{ color: 'rgba(245,240,235,0.35)' }}
                 onMouseEnter={(e) => (e.currentTarget.style.color = 'var(--p-text)')}
@@ -82,13 +83,22 @@ export default function Footer() {
                 {label}
               </a>
             ))}
+            <Link
+              href="/notebook"
+              className="transition-colors duration-300"
+              style={{ color: 'rgba(245,240,235,0.35)' }}
+              onMouseEnter={(e) => (e.currentTarget.style.color = 'var(--p-text)')}
+              onMouseLeave={(e) => (e.currentTarget.style.color = 'rgba(245,240,235,0.35)')}
+            >
+              The Notebook
+            </Link>
           </div>
 
         </div>
 
         {/* Bottom signature */}
         <p
-          className="tracking-widest uppercase text-center"
+          className="tracking-widest uppercase text-center w-full"
           style={{
             fontFamily: 'var(--font-inter)',
             fontSize: '0.6rem',

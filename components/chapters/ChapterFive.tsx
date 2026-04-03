@@ -1,3 +1,7 @@
+'use client';
+
+import { TypewriterText } from '@/components/ui/animations';
+
 export default function ChapterFive() {
   return (
     <section
@@ -7,13 +11,9 @@ export default function ChapterFive() {
     >
       <p
         className="tracking-[0.35em] uppercase"
-        style={{
-          fontFamily: 'var(--font-inter)',
-          fontSize: '0.7rem',
-          color: 'var(--p-muted)',
-        }}
+        style={{ fontFamily: 'var(--font-inter)', fontSize: '0.7rem', color: 'var(--p-muted)' }}
       >
-        Still being written.
+        <TypewriterText speed={90}>Still being written.</TypewriterText>
       </p>
     </section>
   );

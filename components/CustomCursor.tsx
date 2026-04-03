@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
 
 export default function CustomCursor() {
   const cursorRef = useRef<HTMLDivElement>(null);
@@ -8,8 +8,13 @@ export default function CustomCursor() {
   const current = useRef({ x: 0, y: 0 });
   const rafRef = useRef<number>(0);
   const hovering = useRef(false);
+  const [isTouch, setIsTouch] = useState(true);
 
   useEffect(() => {
+    const touch = window.matchMedia('(hover: none)').matches;
+    setIsTouch(touch);
+    if (touch) return;
+
     const cursor = cursorRef.current;
     if (!cursor) return;
 
@@ -58,7 +63,9 @@ export default function CustomCursor() {
       window.removeEventListener('mouseover', onMouseOver);
       window.removeEventListener('mouseout', onMouseOut);
     };
-  }, []);
+  }, [isTouch]);
+
+  if (isTouch) return null;
 
   return (
     <div

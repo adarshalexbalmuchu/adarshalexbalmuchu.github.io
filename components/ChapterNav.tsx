@@ -8,7 +8,6 @@ const chapters = [
   { id: 'chapter-3', label: 'The Rooms' },
   { id: 'chapter-4', label: 'The Disciplines' },
   { id: 'chapter-5', label: '___' },
-  { id: 'chapter-6', label: 'The Notebook' },
 ];
 
 export default function ChapterNav() {
@@ -36,7 +35,7 @@ export default function ChapterNav() {
 
   return (
     <nav
-      className="fixed right-6 top-1/2 -translate-y-1/2 z-50 flex flex-col items-end gap-6"
+      className="hidden md:flex fixed right-6 top-1/2 -translate-y-1/2 z-50 flex-col items-end gap-6"
       aria-label="Chapter navigation"
     >
       {chapters.map(({ id, label }, i) => {
