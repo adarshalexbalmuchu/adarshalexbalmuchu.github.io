@@ -6,7 +6,7 @@ const chapters = [
   { id: 'chapter-1', label: 'The Eye' },
   { id: 'chapter-2', label: 'The Strategist' },
   { id: 'chapter-3', label: 'The Rooms' },
-  { id: 'chapter-4', label: 'The Disciplines' },
+  // { id: 'chapter-4', label: 'The Disciplines' }, // temporarily disabled
   { id: 'chapter-5', label: '___' },
 ];
 

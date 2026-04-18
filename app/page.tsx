@@ -1,7 +1,7 @@
 import ChapterOne from "@/components/chapters/ChapterOne";
 import ChapterTwo from "@/components/chapters/ChapterTwo";
 import ChapterThree from "@/components/chapters/ChapterThree";
-import ChapterFour from "@/components/chapters/ChapterFour";
+// import ChapterFour from "@/components/chapters/ChapterFour"; // temporarily disabled
 import ChapterFive from "@/components/chapters/ChapterFive";
 import ChapterNav from "@/components/ChapterNav";
 import Footer from "@/components/Footer";
@@ -21,7 +21,7 @@ export default function Home() {
       <ChapterOne />
       <ChapterTwo />
       <ChapterThree />
-      <ChapterFour />
+      {/* <ChapterFour /> */}
       <ChapterFive />
 <Footer />
     </div>
