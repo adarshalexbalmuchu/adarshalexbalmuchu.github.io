@@ -223,14 +223,17 @@ function OrbitRing() {
 }
 
 /* ── Rising particle system ── */
-/* Deterministic pseudo-random to avoid SSR hydration mismatch */
+/* Deterministic pseudo-random to avoid SSR hydration mismatch.
+   Values are rounded to fixed precision so server-rendered strings
+   match what framer-motion normalizes client-side. */
 function seeded(i: number) { const s = Math.sin(i * 127.1 + 311.7) * 43758.5453; return s - Math.floor(s); }
+const r2 = (n: number) => Math.round(n * 100) / 100;
 const particles = Array.from({ length: 20 }, (_, i) => ({
   id: i,
-  x: `${5 + seeded(i) * 90}%`,
-  size: 1.5 + seeded(i + 100) * 2.5,
-  duration: 8 + seeded(i + 200) * 12,
-  delay: seeded(i + 300) * 8,
+  x: `${r2(5 + seeded(i) * 90)}%`,
+  size: r2(1.5 + seeded(i + 100) * 2.5),
+  duration: r2(8 + seeded(i + 200) * 12),
+  delay: r2(seeded(i + 300) * 8),
   color: ['#e8647a', '#64b5f6', '#81c784', '#ffb74d', '#a259ff'][Math.floor(seeded(i + 400) * 5)],
 }));
 
