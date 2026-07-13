@@ -23,7 +23,7 @@ export default function ChapterSix() {
         style={{ color: 'var(--p-text)', letterSpacing: '0.02em' }}
       >
         <RevealLine delay={0.1}>These aren't articles.</RevealLine>
-        <RevealLine delay={0.22}><span style={{ color: '#e85d75' }}>They're thoughts that got too long for my head.</span></RevealLine>
+        <RevealLine delay={0.22}><span style={{ color: 'var(--p-accent)' }}>They're thoughts that got too long for my head.</span></RevealLine>
       </h2>
 
       <FadeUp delay={0.35}>
@@ -39,11 +39,11 @@ export default function ChapterSix() {
           <FadeUp key={title} delay={0.1 + i * 0.12}>
             <div className="flex flex-col justify-between h-full" style={{ background: 'rgba(255,255,255,0.03)', border: '1px solid rgba(255,255,255,0.08)', borderRadius: 8, padding: 24, cursor: 'default' }}>
               <div>
-                <p className="mb-4 tracking-widest uppercase" style={{ fontFamily: 'var(--font-inter)', fontSize: '0.6rem', color: '#e85d75' }}>{tag}</p>
+                <p className="mb-4 tracking-widest uppercase" style={{ fontFamily: 'var(--font-inter)', fontSize: '0.6rem', color: 'var(--p-accent)' }}>{tag}</p>
                 <h3 className="font-cormorant text-2xl font-light leading-snug" style={{ color: 'var(--p-text)', letterSpacing: '0.02em' }}>{title}</h3>
               </div>
               <div className="mt-8">
-                <span style={{ display: 'inline-block', background: 'rgba(232,93,117,0.1)', border: '1px solid rgba(232,93,117,0.3)', color: '#e85d75', fontSize: 11, textTransform: 'uppercase', letterSpacing: '0.15em', padding: '4px 10px', borderRadius: 20, fontFamily: 'var(--font-inter)' }}>
+                <span style={{ display: 'inline-block', background: 'rgba(232,100,122,0.1)', border: '1px solid rgba(232,100,122,0.3)', color: 'var(--p-accent)', fontSize: 11, textTransform: 'uppercase', letterSpacing: '0.15em', padding: '4px 10px', borderRadius: 20, fontFamily: 'var(--font-inter)' }}>
                   Brewing...
                 </span>
               </div>

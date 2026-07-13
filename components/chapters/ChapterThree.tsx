@@ -43,7 +43,6 @@ function FloorOrnament() {
     <div
       aria-hidden
       className="relative flex items-center justify-center py-3"
-      style={{ background: 'var(--p-bg)' }}
     >
       <span className="h-px flex-1" style={{ background: BRASS_LINE }} />
       <span
@@ -412,7 +411,6 @@ export default function ChapterThree() {
     <section
       id="chapter-3"
       className="relative px-4 md:px-20 py-16 md:py-28"
-      style={{ background: 'var(--p-bg)' }}
     >
       {/* Chapter heading */}
       <p className="chapter-label mb-3">

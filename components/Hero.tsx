@@ -12,6 +12,17 @@ export default function Hero() {
       className="relative min-h-screen flex items-center justify-center overflow-hidden"
     >
       <CelestialInkShader />
+
+      {/* Veil — the shader dissolves into the night sky behind the chapters */}
+      <div
+        aria-hidden
+        className="absolute inset-x-0 bottom-0 z-[5] pointer-events-none"
+        style={{
+          height: '38vh',
+          background: 'linear-gradient(to bottom, transparent 0%, rgba(13,10,26,0.55) 55%, var(--p-bg) 100%)',
+        }}
+      />
+
       <div className="relative z-10 text-center px-6 -mt-12 w-full">
         {/* Name — letter by letter */}
         <h1
@@ -68,6 +79,34 @@ export default function Hero() {
           </a>
         </motion.div>
       </div>
+
+      {/* Scroll cue */}
+      <motion.div
+        aria-hidden
+        className="absolute bottom-8 left-1/2 -translate-x-1/2 z-10 flex flex-col items-center gap-3"
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ duration: 1, delay: NAME.length * 0.04 + 1.4 }}
+      >
+        <span
+          className="uppercase"
+          style={{
+            fontFamily: 'var(--font-inter)',
+            fontSize: '0.55rem',
+            letterSpacing: '0.35em',
+            color: 'rgba(245,240,235,0.4)',
+          }}
+        >
+          Scroll
+        </span>
+        <span
+          className="block w-px h-10"
+          style={{
+            background: 'linear-gradient(to bottom, var(--p-accent), transparent)',
+            animation: 'scrollCue 2.2s ease-in-out infinite',
+          }}
+        />
+      </motion.div>
     </section>
   );
 }

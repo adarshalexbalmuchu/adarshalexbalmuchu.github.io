@@ -6,7 +6,7 @@ const chapters = [
   { id: 'chapter-1', label: 'The Eye' },
   { id: 'chapter-2', label: 'The Strategist' },
   { id: 'chapter-3', label: 'The Rooms' },
-  // { id: 'chapter-4', label: 'The Disciplines' }, // temporarily disabled
+  { id: 'chapter-4', label: 'The Disciplines' },
   { id: 'chapter-5', label: '___' },
 ];
 
@@ -54,7 +54,7 @@ export default function ChapterNav() {
                 fontSize: '0.6rem',
                 letterSpacing: '0.2em',
                 textTransform: 'uppercase',
-                color: isActive ? '#e85d75' : 'rgba(255,255,255,0.4)',
+                color: isActive ? 'var(--p-accent)' : 'rgba(255,255,255,0.4)',
               }}
             >
               {label}
@@ -66,8 +66,8 @@ export default function ChapterNav() {
               style={{
                 fontFamily: 'var(--font-inter)',
                 letterSpacing: '0.15em',
-                color: isActive ? '#e85d75' : 'rgba(255,255,255,0.35)',
-                textShadow: isActive ? '0 0 12px rgba(232,93,117,0.7)' : 'none',
+                color: isActive ? 'var(--p-accent)' : 'rgba(255,255,255,0.35)',
+                textShadow: isActive ? '0 0 12px rgba(232,100,122,0.7)' : 'none',
                 fontWeight: isActive ? 500 : 300,
                 fontSize: '11px',
               }}

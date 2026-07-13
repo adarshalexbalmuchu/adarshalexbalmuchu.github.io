@@ -96,7 +96,7 @@ export default function MusicPlayer() {
           fontSize: '0.6rem',
           letterSpacing: '0.35em',
           textTransform: 'uppercase',
-          color: '#e85d75',
+          color: 'var(--p-accent)',
         }}
       >
         Click anywhere to enter

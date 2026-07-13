@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useRef, useCallback, useMemo, useEffect } from 'react';
+import { useState, useRef, useCallback, useEffect } from 'react';
 import { motion, useScroll, useTransform, AnimatePresence } from 'framer-motion';
 import { ScrambleText, FadeUp } from '@/components/ui/animations';
 import { DesktopFrame, TabletFrame, MobileFrame } from '@/components/ui/DeviceFrames';
@@ -48,14 +48,14 @@ const floatY = {
 
 /* ── floating tech stack pills ── */
 const techPills = [
-  { label: 'Next.js',     x: '3%',  y: '8%',  delay: 0, color: '#1a1a2e' },
-  { label: 'TypeScript',  x: '88%', y: '5%',  delay: 0.6, color: '#3178c6' },
+  { label: 'Next.js',     x: '3%',  y: '8%',  delay: 0, color: '#f5f0eb' },
+  { label: 'TypeScript',  x: '88%', y: '5%',  delay: 0.6, color: '#7ab3ef' },
   { label: 'React',       x: '92%', y: '45%', delay: 1.2, color: '#61dafb' },
   { label: 'Tailwind',    x: '5%',  y: '55%', delay: 0.3, color: '#38bdf8' },
-  { label: 'Node.js',     x: '8%',  y: '85%', delay: 0.9, color: '#68a063' },
-  { label: 'PostgreSQL',  x: '85%', y: '82%', delay: 1.5, color: '#336791' },
+  { label: 'Node.js',     x: '8%',  y: '85%', delay: 0.9, color: '#8fc98a' },
+  { label: 'PostgreSQL',  x: '85%', y: '82%', delay: 1.5, color: '#7aa7cc' },
   { label: 'Figma',       x: '48%', y: '65%', delay: 0.45, color: '#a259ff' },
-  { label: 'Vercel',      x: '75%', y: '3%',  delay: 1.05, color: '#1a1a2e' },
+  { label: 'Vercel',      x: '75%', y: '3%',  delay: 1.05, color: '#f5f0eb' },
 ];
 
 /* ── decorative scattered elements ── */
@@ -79,7 +79,7 @@ const stats = [
 /* ── deploy log lines for mini terminal ── */
 const deployLines = [
   { text: '$ git push origin main', color: '#81c784' },
-  { text: 'Enumerating objects: 42, done.', color: 'rgba(30,30,50,0.5)' },
+  { text: 'Enumerating objects: 42, done.', color: 'rgba(245,240,235,0.4)' },
   { text: '▸ Building Next.js app...', color: '#64b5f6' },
   { text: '✓ Compiled successfully', color: '#81c784' },
   { text: '▸ Running type checks...', color: '#64b5f6' },
@@ -285,59 +285,46 @@ export default function ChapterTwo() {
     <section
       id="chapter-2"
       className="min-h-screen px-4 md:px-20 py-16 md:py-28 flex flex-col justify-center"
-      style={{ background: 'linear-gradient(160deg, #f8f4f0 0%, #f5f2ed 25%, #f0ece6 50%, #eee9e2 75%, #f3efe9 100%)', position: 'relative', overflow: 'hidden' }}
+      style={{ position: 'relative', overflow: 'hidden' }}
     >
-      {/* ── Gradient mesh background ── */}
+      {/* ── Nebula mesh — the same sky, gathering color where the work lives ── */}
       <div style={{ position: 'absolute', inset: 0, pointerEvents: 'none', overflow: 'hidden' }}>
-        {/* Warm top-left blob */}
+        {/* Rose top-left */}
         <div style={{
           position: 'absolute', width: '60%', height: '60%', borderRadius: '50%',
-          background: 'radial-gradient(circle, rgba(232,100,122,0.12) 0%, transparent 60%)',
+          background: 'radial-gradient(circle, rgba(232,100,122,0.10) 0%, transparent 60%)',
           top: '-10%', left: '-5%', filter: 'blur(100px)',
         }} />
-        {/* Cool bottom-right blob */}
+        {/* Cool blue bottom-right */}
         <div style={{
           position: 'absolute', width: '50%', height: '50%', borderRadius: '50%',
-          background: 'radial-gradient(circle, rgba(100,140,246,0.10) 0%, transparent 60%)',
+          background: 'radial-gradient(circle, rgba(100,140,246,0.09) 0%, transparent 60%)',
           bottom: '-5%', right: '-5%', filter: 'blur(100px)',
         }} />
         {/* Amber center-bottom */}
         <div style={{
           position: 'absolute', width: '40%', height: '40%', borderRadius: '50%',
-          background: 'radial-gradient(circle, rgba(255,183,77,0.08) 0%, transparent 60%)',
+          background: 'radial-gradient(circle, rgba(255,183,77,0.06) 0%, transparent 60%)',
           bottom: '10%', left: '30%', filter: 'blur(100px)',
         }} />
         {/* Soft green left */}
         <div style={{
           position: 'absolute', width: '35%', height: '35%', borderRadius: '50%',
-          background: 'radial-gradient(circle, rgba(129,199,132,0.08) 0%, transparent 60%)',
+          background: 'radial-gradient(circle, rgba(129,199,132,0.06) 0%, transparent 60%)',
           top: '50%', left: '5%', filter: 'blur(90px)',
         }} />
-        {/* Purple accent — center */}
+        {/* Violet accent — center */}
         <div style={{
           position: 'absolute', width: '45%', height: '45%', borderRadius: '50%',
-          background: 'radial-gradient(circle, rgba(162,100,232,0.06) 0%, transparent 60%)',
+          background: 'radial-gradient(circle, rgba(162,100,232,0.07) 0%, transparent 60%)',
           top: '20%', left: '35%', filter: 'blur(120px)',
         }} />
-        {/* Warm glow — right edge */}
-        <div style={{
-          position: 'absolute', width: '30%', height: '50%', borderRadius: '50%',
-          background: 'radial-gradient(circle, rgba(232,100,122,0.06) 0%, transparent 55%)',
-          top: '40%', right: '-3%', filter: 'blur(80px)',
-        }} />
       </div>
-
-      {/* ── Noise texture overlay ── */}
-      <div style={{
-        position: 'absolute', inset: 0, pointerEvents: 'none', opacity: 0.4,
-        backgroundImage: `url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E")`,
-        backgroundSize: '200px 200px',
-      }} />
 
       {/* ── Thin horizontal rule accent ── */}
       <div style={{
         position: 'absolute', top: 0, left: '10%', right: '10%', height: 1, pointerEvents: 'none',
-        background: 'linear-gradient(90deg, transparent, rgba(0,0,0,0.06) 20%, rgba(0,0,0,0.06) 80%, transparent)',
+        background: 'linear-gradient(90deg, transparent, rgba(245,240,235,0.08) 20%, rgba(245,240,235,0.08) 80%, transparent)',
       }} />
 
       {/* ── Side annotation — left ── */}
@@ -347,7 +334,7 @@ export default function ChapterTwo() {
       }}>
         <span style={{
           fontFamily: 'var(--font-inter)', fontSize: '8px', letterSpacing: '0.25em',
-          textTransform: 'uppercase', color: 'rgba(30,30,50,0.15)', whiteSpace: 'nowrap',
+          textTransform: 'uppercase', color: 'rgba(245,240,235,0.18)', whiteSpace: 'nowrap',
         }}>
           Design · Develop · Deploy
         </span>
@@ -360,7 +347,7 @@ export default function ChapterTwo() {
       }}>
         <span style={{
           fontFamily: 'var(--font-inter)', fontSize: '8px', letterSpacing: '0.25em',
-          textTransform: 'uppercase', color: 'rgba(30,30,50,0.15)', whiteSpace: 'nowrap',
+          textTransform: 'uppercase', color: 'rgba(245,240,235,0.18)', whiteSpace: 'nowrap',
         }}>
           Portfolio · 2024–25
         </span>
@@ -368,13 +355,13 @@ export default function ChapterTwo() {
 
       {/* Header */}
       <div style={{ position: 'relative', zIndex: 2 }}>
-        <p className="chapter-label mb-3" style={{ color: 'rgba(30,30,50,0.4)' }}>
+        <p className="chapter-label mb-3">
           <ScrambleText>Chapter 2</ScrambleText>
         </p>
 
         <h2
           className="font-cormorant text-3xl md:text-5xl font-light leading-tight mb-4"
-          style={{ color: '#1a1a2e', letterSpacing: '0.01em' }}
+          style={{ color: 'var(--p-text)', letterSpacing: '0.01em' }}
         >
           Most strategists talk.{' '}
           <span
@@ -396,7 +383,7 @@ export default function ChapterTwo() {
               fontFamily: 'var(--font-inter)',
               fontSize: 14,
               lineHeight: 1.75,
-              color: 'rgba(30,30,50,0.55)',
+              color: 'rgba(245,240,235,0.55)',
               maxWidth: 480,
               marginBottom: 52,
             }}
@@ -526,7 +513,7 @@ export default function ChapterTwo() {
                 color: pill.color,
                 padding: '3px 10px',
                 borderRadius: 20,
-                background: 'rgba(255,255,255,0.7)',
+                background: 'rgba(255,255,255,0.07)',
                 backdropFilter: 'blur(8px)',
                 border: `1px solid ${pill.color}18`,
                 boxShadow: `0 2px 8px rgba(0,0,0,0.04), 0 0 0 1px ${pill.color}08`,
@@ -605,7 +592,7 @@ export default function ChapterTwo() {
                 fontFamily: 'var(--font-cormorant)',
                 fontSize: '2rem',
                 fontWeight: 300,
-                color: '#1a1a2e',
+                color: 'var(--p-text)',
                 lineHeight: 1,
                 letterSpacing: '-0.02em',
               }}>
@@ -617,7 +604,7 @@ export default function ChapterTwo() {
                 fontWeight: 500,
                 textTransform: 'uppercase',
                 letterSpacing: '0.12em',
-                color: 'rgba(30,30,50,0.35)',
+                color: 'rgba(245,240,235,0.4)',
               }}>
                 {stat.label}
               </span>
@@ -632,7 +619,7 @@ export default function ChapterTwo() {
           zIndex: 1,
           pointerEvents: 'none',
           opacity: 0.35,
-          backgroundImage: 'radial-gradient(circle, rgba(30,30,50,0.12) 1px, transparent 1px)',
+          backgroundImage: 'radial-gradient(circle, rgba(245,240,235,0.10) 1px, transparent 1px)',
           backgroundSize: '32px 32px',
           maskImage: 'radial-gradient(ellipse at center, black 20%, transparent 75%)',
           WebkitMaskImage: 'radial-gradient(ellipse at center, black 20%, transparent 75%)',
@@ -688,12 +675,12 @@ export default function ChapterTwo() {
               style={{
                 fontFamily: 'ui-monospace, monospace',
                 fontSize: '8px',
-                color: 'rgba(30,30,50,0.18)',
+                color: 'rgba(245,240,235,0.22)',
                 padding: '3px 8px',
                 borderRadius: 4,
-                background: 'rgba(255,255,255,0.35)',
+                background: 'rgba(255,255,255,0.04)',
                 backdropFilter: 'blur(4px)',
-                border: '1px solid rgba(30,30,50,0.04)',
+                border: '1px solid rgba(245,240,235,0.06)',
                 whiteSpace: 'nowrap',
               }}
             >
@@ -924,7 +911,7 @@ export default function ChapterTwo() {
               <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
                 {/* Accent dot */}
                 <span style={{ width: 6, height: 6, borderRadius: '50%', background: activeInfo.color, boxShadow: `0 0 8px ${activeInfo.color}40`, flexShrink: 0 }} />
-                <span style={{ fontFamily: 'var(--font-cormorant)', fontSize: '1.2rem', color: '#1a1a2e', fontWeight: 500, whiteSpace: 'nowrap' }}>
+                <span style={{ fontFamily: 'var(--font-cormorant)', fontSize: '1.2rem', color: 'var(--p-text)', fontWeight: 500, whiteSpace: 'nowrap' }}>
                   {activeInfo.name}
                 </span>
                 <span style={{
@@ -937,7 +924,7 @@ export default function ChapterTwo() {
                 </span>
               </div>
               <p style={{
-                fontFamily: 'var(--font-inter)', fontSize: '11px', color: 'rgba(30,30,50,0.5)',
+                fontFamily: 'var(--font-inter)', fontSize: '11px', color: 'rgba(245,240,235,0.5)',
                 maxWidth: 400, lineHeight: 1.5, textAlign: 'center',
               }}>
                 {activeInfo.desc}
@@ -955,7 +942,7 @@ export default function ChapterTwo() {
               <LiveEmbed url="unitechshop.com" />
             </DesktopFrame>
             <div style={{ marginTop: 10, textAlign: 'center' }}>
-              <span style={{ fontFamily: 'var(--font-cormorant)', fontSize: '1rem', color: '#1a1a2e', fontWeight: 500 }}>Unitech India</span>
+              <span style={{ fontFamily: 'var(--font-cormorant)', fontSize: '1rem', color: 'var(--p-text)', fontWeight: 500 }}>Unitech India</span>
               <span style={{ fontFamily: 'var(--font-inter)', fontSize: '7px', textTransform: 'uppercase', letterSpacing: '0.08em', color: '#e8647a', marginLeft: 8 }}>E-commerce</span>
             </div>
           </a>
@@ -967,7 +954,7 @@ export default function ChapterTwo() {
               <LiveEmbed url="echoinghealthyageing.com" />
             </TabletFrame>
             <div style={{ marginTop: 10, textAlign: 'center' }}>
-              <span style={{ fontFamily: 'var(--font-cormorant)', fontSize: '1rem', color: '#1a1a2e', fontWeight: 500 }}>Echoing Healthy Ageing</span>
+              <span style={{ fontFamily: 'var(--font-cormorant)', fontSize: '1rem', color: 'var(--p-text)', fontWeight: 500 }}>Echoing Healthy Ageing</span>
               <span style={{ fontFamily: 'var(--font-inter)', fontSize: '7px', textTransform: 'uppercase', letterSpacing: '0.08em', color: '#81c784', marginLeft: 8 }}>Healthcare</span>
             </div>
           </a>
@@ -979,7 +966,7 @@ export default function ChapterTwo() {
               <LiveEmbed url="shatamcare.org" />
             </TabletFrame>
             <div style={{ marginTop: 10, textAlign: 'center' }}>
-              <span style={{ fontFamily: 'var(--font-cormorant)', fontSize: '1rem', color: '#1a1a2e', fontWeight: 500 }}>Shatam Care</span>
+              <span style={{ fontFamily: 'var(--font-cormorant)', fontSize: '1rem', color: 'var(--p-text)', fontWeight: 500 }}>Shatam Care</span>
               <span style={{ fontFamily: 'var(--font-inter)', fontSize: '7px', textTransform: 'uppercase', letterSpacing: '0.08em', color: '#ffb74d', marginLeft: 8 }}>NGO</span>
             </div>
           </a>
@@ -991,7 +978,7 @@ export default function ChapterTwo() {
               <LiveEmbed url="youngcomet.co" scale={0.28} />
             </MobileFrame>
             <div style={{ marginTop: 10, textAlign: 'center' }}>
-              <span style={{ fontFamily: 'var(--font-cormorant)', fontSize: '1rem', color: '#1a1a2e', fontWeight: 500 }}>Young Comet</span>
+              <span style={{ fontFamily: 'var(--font-cormorant)', fontSize: '1rem', color: 'var(--p-text)', fontWeight: 500 }}>Young Comet</span>
               <span style={{ fontFamily: 'var(--font-inter)', fontSize: '7px', textTransform: 'uppercase', letterSpacing: '0.08em', color: '#64b5f6', marginLeft: 8 }}>Brand</span>
             </div>
           </a>
@@ -1004,7 +991,7 @@ export default function ChapterTwo() {
           <div style={{ flex: 1, maxWidth: 120, height: 1, background: 'linear-gradient(90deg, transparent, rgba(232,100,122,0.15))' }} />
           <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
             <span style={{ width: 4, height: 4, borderRadius: '50%', background: 'var(--p-accent)', boxShadow: '0 0 6px var(--p-accent)', animation: 'livePulse 2s ease-in-out infinite' }} />
-            <span style={{ fontFamily: 'var(--font-inter)', fontSize: '0.6rem', letterSpacing: '0.15em', textTransform: 'uppercase', color: 'rgba(30,30,50,0.3)' }}>
+            <span style={{ fontFamily: 'var(--font-inter)', fontSize: '0.6rem', letterSpacing: '0.15em', textTransform: 'uppercase', color: 'rgba(245,240,235,0.4)' }}>
               Still building
             </span>
           </div>

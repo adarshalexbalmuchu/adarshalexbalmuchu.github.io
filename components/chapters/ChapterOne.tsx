@@ -35,7 +35,6 @@ export default function ChapterOne() {
       id="chapter-1"
       ref={sectionRef}
       className="min-h-screen px-4 md:px-20 py-12 md:py-24"
-      style={{ background: 'var(--p-bg)' }}
     >
       <div className="mb-10 md:mb-14">
         <p className="chapter-label mb-3">
