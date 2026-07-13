@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 
 const chapters = [
   { id: 'chapter-1', label: 'The Eye' },
@@ -14,7 +14,7 @@ const chapters = [
    line of light that fills as the reader travels down the story. */
 export default function ChapterNav() {
   const [active, setActive] = useState<string>('');
-  const [progress, setProgress] = useState(0);
+  const fillRef = useRef<HTMLSpanElement>(null);
 
   useEffect(() => {
     const observers: IntersectionObserver[] = [];
@@ -33,16 +33,24 @@ export default function ChapterNav() {
       observers.push(observer);
     });
 
-    const onScroll = () => {
+    // fill the rail via transform only — no re-render, no layout during scroll
+    let raf = 0;
+    const update = () => {
+      raf = 0;
       const docHeight = document.documentElement.scrollHeight - window.innerHeight;
-      setProgress(docHeight > 0 ? window.scrollY / docHeight : 0);
+      const p = docHeight > 0 ? Math.min(window.scrollY / docHeight, 1) : 0;
+      if (fillRef.current) fillRef.current.style.transform = `scaleY(${p})`;
+    };
+    const onScroll = () => {
+      if (!raf) raf = requestAnimationFrame(update);
     };
     window.addEventListener('scroll', onScroll, { passive: true });
-    onScroll();
+    update();
 
     return () => {
       observers.forEach((o) => o.disconnect());
       window.removeEventListener('scroll', onScroll);
+      cancelAnimationFrame(raf);
     };
   }, []);
 
@@ -65,16 +73,19 @@ export default function ChapterNav() {
         }}
       />
       <span
+        ref={fillRef}
         aria-hidden
         className="absolute pointer-events-none"
         style={{
           right: 2.5,
           top: -14,
+          bottom: -14,
           width: 1,
-          height: `calc(${Math.min(progress, 1) * 100}% + ${Math.min(progress, 1) * 28 - 14}px)`,
+          transform: 'scaleY(0)',
+          transformOrigin: 'top',
           background: 'linear-gradient(to bottom, var(--p-gold), var(--p-accent))',
           boxShadow: '0 0 8px rgba(232,100,122,0.5)',
-          transition: 'height 0.15s linear',
+          willChange: 'transform',
         }}
       />
 

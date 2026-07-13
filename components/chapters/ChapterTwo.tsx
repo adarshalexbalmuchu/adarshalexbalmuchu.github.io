@@ -5,24 +5,46 @@ import { motion, useScroll, useTransform, AnimatePresence } from 'framer-motion'
 import { ScrambleText, FadeUp } from '@/components/ui/animations';
 import { DesktopFrame, TabletFrame, MobileFrame } from '@/components/ui/DeviceFrames';
 
-/* ── live iframe embed ── */
+/* ── live iframe embed — mounted only once the frame nears the viewport,
+      so four external sites don't load (and jank the scroll) up front ── */
 function LiveEmbed({ url, scale = 0.5 }: { url: string; scale?: number }) {
+  const holderRef = useRef<HTMLDivElement>(null);
+  const [mounted, setMounted] = useState(false);
+
+  useEffect(() => {
+    const el = holderRef.current;
+    if (!el) return;
+    const io = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setMounted(true);
+          io.disconnect();
+        }
+      },
+      { rootMargin: '400px' }
+    );
+    io.observe(el);
+    return () => io.disconnect();
+  }, []);
+
   return (
-    <div style={{ position: 'absolute', inset: 0, background: '#180c14', overflow: 'hidden' }}>
-      <iframe
-        src={`https://${url}`}
-        title={url}
-        loading="lazy"
-        sandbox="allow-scripts allow-same-origin"
-        style={{
-          width: `${Math.round(100 / scale)}%`,
-          height: `${Math.round(100 / scale)}%`,
-          border: 'none',
-          transform: `scale(${scale})`,
-          transformOrigin: 'top left',
-          pointerEvents: 'none',
-        }}
-      />
+    <div ref={holderRef} style={{ position: 'absolute', inset: 0, background: '#180c14', overflow: 'hidden' }}>
+      {mounted && (
+        <iframe
+          src={`https://${url}`}
+          title={url}
+          loading="lazy"
+          sandbox="allow-scripts allow-same-origin"
+          style={{
+            width: `${Math.round(100 / scale)}%`,
+            height: `${Math.round(100 / scale)}%`,
+            border: 'none',
+            transform: `scale(${scale})`,
+            transformOrigin: 'top left',
+            pointerEvents: 'none',
+          }}
+        />
+      )}
     </div>
   );
 }
@@ -228,7 +250,7 @@ function OrbitRing() {
    match what framer-motion normalizes client-side. */
 function seeded(i: number) { const s = Math.sin(i * 127.1 + 311.7) * 43758.5453; return s - Math.floor(s); }
 const r2 = (n: number) => Math.round(n * 100) / 100;
-const particles = Array.from({ length: 20 }, (_, i) => ({
+const particles = Array.from({ length: 12 }, (_, i) => ({
   id: i,
   x: `${r2(5 + seeded(i) * 90)}%`,
   size: r2(1.5 + seeded(i + 100) * 2.5),
@@ -237,20 +259,19 @@ const particles = Array.from({ length: 20 }, (_, i) => ({
   color: ['#e8647a', '#64b5f6', '#81c784', '#ffb74d', '#a259ff'][Math.floor(seeded(i + 400) * 5)],
 }));
 
-/* ── mouse-following spotlight in canvas ── */
+/* ── mouse-following spotlight — positions the glow div directly instead
+      of re-rendering the whole canvas on every pointer move ── */
 function useMouseLight(containerRef: React.RefObject<HTMLDivElement | null>) {
-  const [pos, setPos] = useState({ x: 50, y: 50 });
+  const lightRef = useRef<HTMLDivElement>(null);
 
   const onMove = useCallback((e: React.MouseEvent) => {
-    if (!containerRef.current) return;
+    if (!containerRef.current || !lightRef.current) return;
     const rect = containerRef.current.getBoundingClientRect();
-    setPos({
-      x: ((e.clientX - rect.left) / rect.width) * 100,
-      y: ((e.clientY - rect.top) / rect.height) * 100,
-    });
+    lightRef.current.style.left = `${((e.clientX - rect.left) / rect.width) * 100}%`;
+    lightRef.current.style.top = `${((e.clientY - rect.top) / rect.height) * 100}%`;
   }, [containerRef]);
 
-  return { pos, onMove };
+  return { lightRef, onMove };
 }
 
 /* ═════════════════════════════════════════════════════════
@@ -259,7 +280,7 @@ function useMouseLight(containerRef: React.RefObject<HTMLDivElement | null>) {
 export default function ChapterTwo() {
   const [hovered, setHovered] = useState<string | null>(null);
   const containerRef = useRef<HTMLDivElement>(null);
-  const { pos, onMove: onMouseMove } = useMouseLight(containerRef);
+  const { lightRef, onMove: onMouseMove } = useMouseLight(containerRef);
 
   /* scroll parallax */
   const { scrollYProgress } = useScroll({
@@ -402,14 +423,15 @@ export default function ChapterTwo() {
       >
         {/* Mouse-following spotlight */}
         <div
+          ref={lightRef}
           style={{
             position: 'absolute',
             width: 500,
             height: 500,
             borderRadius: '50%',
             background: `radial-gradient(circle, ${activeInfo.color}08 0%, transparent 70%)`,
-            left: `${pos.x}%`,
-            top: `${pos.y}%`,
+            left: '50%',
+            top: '50%',
             transform: 'translate(-50%, -50%)',
             pointerEvents: 'none',
             transition: 'left 0.3s ease-out, top 0.3s ease-out, background 0.5s ease',
@@ -513,8 +535,7 @@ export default function ChapterTwo() {
                 color: pill.color,
                 padding: '3px 10px',
                 borderRadius: 20,
-                background: 'rgba(255,255,255,0.07)',
-                backdropFilter: 'blur(8px)',
+                background: 'rgba(24,16,32,0.75)',
                 border: `1px solid ${pill.color}18`,
                 boxShadow: `0 2px 8px rgba(0,0,0,0.04), 0 0 0 1px ${pill.color}08`,
                 whiteSpace: 'nowrap',
@@ -678,8 +699,7 @@ export default function ChapterTwo() {
                 color: 'rgba(245,240,235,0.22)',
                 padding: '3px 8px',
                 borderRadius: 4,
-                background: 'rgba(255,255,255,0.04)',
-                backdropFilter: 'blur(4px)',
+                background: 'rgba(24,16,32,0.6)',
                 border: '1px solid rgba(245,240,235,0.06)',
                 whiteSpace: 'nowrap',
               }}

@@ -1,32 +1,46 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import { useEffect, useRef } from 'react';
 
+/* Full-width bar scaled via transform — no setState, no layout, no paint
+   during scroll; the update is rAF-throttled and compositor-only. */
 export default function ScrollProgress() {
-  const [progress, setProgress] = useState(0);
+  const barRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    const onScroll = () => {
-      const scrollTop = window.scrollY;
+    let raf = 0;
+    const update = () => {
+      raf = 0;
       const docHeight = document.documentElement.scrollHeight - window.innerHeight;
-      setProgress(docHeight > 0 ? scrollTop / docHeight : 0);
+      const p = docHeight > 0 ? window.scrollY / docHeight : 0;
+      if (barRef.current) barRef.current.style.transform = `scaleX(${p})`;
+    };
+    const onScroll = () => {
+      if (!raf) raf = requestAnimationFrame(update);
     };
     window.addEventListener('scroll', onScroll, { passive: true });
-    return () => window.removeEventListener('scroll', onScroll);
+    update();
+    return () => {
+      window.removeEventListener('scroll', onScroll);
+      cancelAnimationFrame(raf);
+    };
   }, []);
 
   return (
     <div
+      ref={barRef}
       style={{
         position: 'fixed',
         top: 0,
         left: 0,
         height: 2,
-        width: `${progress * 100}%`,
+        width: '100%',
+        transform: 'scaleX(0)',
+        transformOrigin: 'left',
         background: 'linear-gradient(90deg, var(--p-accent), var(--p-gold))',
         zIndex: 9998,
         pointerEvents: 'none',
-        transition: 'width 0.05s linear',
+        willChange: 'transform',
       }}
     />
   );

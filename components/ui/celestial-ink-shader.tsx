@@ -11,7 +11,9 @@ const CelestialInkShader = () => {
     if (!container) return;
 
     const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
-    renderer.setPixelRatio(window.devicePixelRatio);
+    // full retina resolution is wasted on soft noise — capping DPR roughly
+    // halves the fragment work on high-density screens
+    renderer.setPixelRatio(Math.min(window.devicePixelRatio, 1.5));
     container.appendChild(renderer.domElement);
 
     const scene = new THREE.Scene();
@@ -112,12 +114,20 @@ const CelestialInkShader = () => {
     };
     window.addEventListener('mousemove', onMouseMove);
 
-    renderer.setAnimationLoop(() => {
+    const loop = () => {
       uniforms.iTime.value = clock.getElapsedTime();
       renderer.render(scene, camera);
+    };
+
+    // only burn GPU while the hero is actually on screen — this is the
+    // difference between a smooth page and a stuck one on long scrolls
+    const io = new IntersectionObserver(([entry]) => {
+      renderer.setAnimationLoop(entry.isIntersecting ? loop : null);
     });
+    io.observe(container);
 
     return () => {
+      io.disconnect();
       window.removeEventListener('resize', onResize);
       window.removeEventListener('mousemove', onMouseMove);
       renderer.setAnimationLoop(null);

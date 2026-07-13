@@ -19,15 +19,23 @@ export default function ChapterOne() {
   useEffect(() => {
     const section = sectionRef.current;
     if (!section) return;
-    const handleScroll = () => {
+    let raf = 0;
+    const apply = () => {
+      raf = 0;
       const sectionTop = section.getBoundingClientRect().top;
       imgRefs.current.forEach((el, i) => {
         if (!el) return;
-        el.style.transform = `translateY(${sectionTop * IMAGES[i].offset * 0.003}px)`;
+        el.style.transform = `translate3d(0, ${sectionTop * IMAGES[i].offset * 0.003}px, 0)`;
       });
     };
+    const handleScroll = () => {
+      if (!raf) raf = requestAnimationFrame(apply);
+    };
     window.addEventListener('scroll', handleScroll, { passive: true });
-    return () => window.removeEventListener('scroll', handleScroll);
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+      cancelAnimationFrame(raf);
+    };
   }, []);
 
   return (
