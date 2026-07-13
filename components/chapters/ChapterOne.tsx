@@ -69,12 +69,41 @@ export default function ChapterOne() {
         ))}
       </div>
 
-      {/* Desktop: masonry grid */}
+      {/* Desktop: masonry grid — hover turns each frame into a viewfinder */}
       <div className="hidden md:grid gap-3 mb-16" style={{ gridTemplateColumns: 'repeat(3, 1fr)', gridAutoRows: '220px' }}>
         {IMAGES.map((img, i) => (
           <div key={i} className={`${img.cls} overflow-hidden relative group`} ref={(el) => { imgRefs.current[i] = el; }} style={{ willChange: 'transform' }}>
-            <Image src={img.src} alt={img.alt} fill className="object-cover grayscale opacity-75 group-hover:opacity-90 group-hover:grayscale-0 transition-all duration-700" sizes="33vw" style={{ objectPosition: img.position ?? 'center' }} />
-            <div className="absolute inset-0 bg-black opacity-0 group-hover:opacity-30 transition-opacity duration-500 pointer-events-none" />
+            <Image src={img.src} alt={img.alt} fill className="object-cover grayscale opacity-75 group-hover:opacity-95 group-hover:grayscale-0 group-hover:scale-[1.04] transition-all duration-700" sizes="33vw" style={{ objectPosition: img.position ?? 'center' }} />
+            <div className="absolute inset-0 bg-black opacity-0 group-hover:opacity-20 transition-opacity duration-500 pointer-events-none" />
+
+            {/* viewfinder corner brackets */}
+            {[
+              'top-3 left-3 border-t border-l',
+              'top-3 right-3 border-t border-r',
+              'bottom-3 left-3 border-b border-l',
+              'bottom-3 right-3 border-b border-r',
+            ].map((cls) => (
+              <span
+                key={cls}
+                aria-hidden
+                className={`absolute ${cls} w-4 h-4 opacity-0 scale-125 group-hover:opacity-100 group-hover:scale-100 transition-all duration-400 pointer-events-none`}
+                style={{ borderColor: 'rgba(232,100,122,0.85)' }}
+              />
+            ))}
+
+            {/* focus caption — reads like camera metadata */}
+            <span
+              className="absolute bottom-3 left-9 opacity-0 translate-y-1 group-hover:opacity-100 group-hover:translate-y-0 transition-all duration-500 pointer-events-none uppercase"
+              style={{
+                fontFamily: 'ui-monospace, monospace',
+                fontSize: '8px',
+                letterSpacing: '0.2em',
+                color: 'rgba(245,240,235,0.85)',
+                textShadow: '0 1px 4px rgba(0,0,0,0.8)',
+              }}
+            >
+              ● REC — {img.alt}
+            </span>
           </div>
         ))}
       </div>

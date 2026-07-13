@@ -190,15 +190,18 @@ function RoomCard({ room, index }: { room: Room; index: number }) {
           </motion.p>
         </div>
 
-        {/* DOOR — splits open to reveal the result */}
-        <div className={`relative h-[300px] md:h-[400px] flex items-center justify-center ${isOdd ? 'md:order-1' : ''}`}>
+        {/* DOOR — swings open on its hinges to reveal the result */}
+        <div
+          className={`relative h-[300px] md:h-[400px] flex items-center justify-center ${isOdd ? 'md:order-1' : ''}`}
+          style={{ perspective: 1400 }}
+        >
           {/* the result, waiting behind the door */}
           <motion.div
             variants={{
-              closed: { opacity: 0, scale: 0.92 },
-              open:   { opacity: 1, scale: 1 },
+              closed: { opacity: 0, scale: 0.88, filter: 'blur(10px)' },
+              open:   { opacity: 1, scale: 1, filter: 'blur(0px)' },
             }}
-            transition={{ duration: 1.0, delay: 1.05, ease: softEase }}
+            transition={{ duration: 1.2, delay: 1.15, ease: softEase }}
             className="text-center px-4"
           >
             <p
@@ -228,6 +231,38 @@ function RoomCard({ room, index }: { room: Room; index: number }) {
             />
           </motion.div>
 
+          {/* golden dust motes drifting up through the doorway */}
+          {[0, 1, 2, 3, 4, 5, 6].map((i) => (
+            <motion.span
+              key={i}
+              aria-hidden
+              variants={{
+                closed: { opacity: 0 },
+                open: {
+                  opacity: [0, 0.7, 0],
+                  y: [12, -60 - i * 14],
+                  x: [0, (i % 2 === 0 ? 1 : -1) * (6 + i * 3)],
+                },
+              }}
+              transition={{
+                duration: 5 + i * 0.9,
+                delay: 1.6 + i * 0.7,
+                repeat: Infinity,
+                repeatDelay: 1.5,
+                ease: 'easeOut',
+              }}
+              className="absolute pointer-events-none rounded-full"
+              style={{
+                left: `${18 + i * 10}%`,
+                bottom: '18%',
+                width: i % 3 === 0 ? 3 : 2,
+                height: i % 3 === 0 ? 3 : 2,
+                background: i % 2 === 0 ? BRASS : 'var(--p-accent)',
+                boxShadow: `0 0 6px ${i % 2 === 0 ? BRASS_DIM : 'rgba(232,100,122,0.4)'}`,
+              }}
+            />
+          ))}
+
           {/* warm light bleed from behind — ambient glow as doors part */}
           <motion.div
             aria-hidden
@@ -244,15 +279,16 @@ function RoomCard({ room, index }: { room: Room; index: number }) {
             }}
           />
 
-          {/* left door panel */}
+          {/* left door panel — hinged at its left edge, swings toward the viewer */}
           <motion.div
             variants={{
-              closed: { x: '0%' },
-              open:   { x: '-103%' },
+              closed: { rotateY: 0 },
+              open:   { rotateY: -88 },
             }}
-            transition={{ duration: 1.25, delay: 0.55, ease: doorEase }}
+            transition={{ duration: 1.6, delay: 0.55, ease: doorEase }}
             className="absolute inset-y-0 left-0 w-1/2"
             style={{
+              transformOrigin: 'left center',
               background:
                 'linear-gradient(105deg, #1c1230 0%, #150c25 50%, #100819 100%)',
               borderRight: `1px solid ${BRASS_DIM}`,
@@ -294,15 +330,16 @@ function RoomCard({ room, index }: { room: Room; index: number }) {
             </div>
           </motion.div>
 
-          {/* right door panel */}
+          {/* right door panel — hinged at its right edge */}
           <motion.div
             variants={{
-              closed: { x: '0%' },
-              open:   { x: '103%' },
+              closed: { rotateY: 0 },
+              open:   { rotateY: 88 },
             }}
-            transition={{ duration: 1.25, delay: 0.55, ease: doorEase }}
+            transition={{ duration: 1.6, delay: 0.55, ease: doorEase }}
             className="absolute inset-y-0 right-0 w-1/2"
             style={{
+              transformOrigin: 'right center',
               background:
                 'linear-gradient(255deg, #1c1230 0%, #150c25 50%, #100819 100%)',
               borderLeft: `1px solid ${BRASS_DIM}`,
@@ -357,50 +394,6 @@ function RoomCard({ room, index }: { room: Room; index: number }) {
             }}
           />
         </div>
-      </div>
-    </motion.div>
-  );
-}
-
-/* ── The phantom 7th door — still being written ── */
-function PhantomRoom() {
-  return (
-    <motion.div
-      initial={{ opacity: 0, y: 24 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true, amount: 0.4 }}
-      transition={{ duration: 1.0, ease: softEase }}
-      className="relative w-full overflow-hidden flex items-center justify-center"
-      style={{ minHeight: 'min(50vh, 380px)' }}
-    >
-      <div
-        aria-hidden
-        className="pointer-events-none absolute inset-x-6 inset-y-6 md:inset-x-12 md:inset-y-10"
-        style={{ border: `1px dashed ${BRASS_LINE}` }}
-      />
-
-      <div className="text-center px-6">
-        <p
-          className="text-[10px] tracking-[0.5em] uppercase mb-5"
-          style={{ color: BRASS_DIM, fontFamily: 'var(--font-inter)' }}
-        >
-          Room 07
-        </p>
-        <p
-          className="font-cormorant italic font-light text-2xl md:text-4xl"
-          style={{ color: 'rgba(245,240,235,0.6)', letterSpacing: '0.01em' }}
-        >
-          still being written
-          <span className="cursor-blink ml-1" style={{ color: 'var(--p-accent)' }}>|</span>
-        </p>
-        <motion.div
-          initial={{ scaleX: 0 }}
-          whileInView={{ scaleX: 1 }}
-          viewport={{ once: true, amount: 0.4 }}
-          transition={{ duration: 1.2, delay: 0.5, ease: softEase }}
-          className="mt-6 mx-auto h-px w-12"
-          style={{ background: BRASS }}
-        />
       </div>
     </motion.div>
   );
@@ -462,10 +455,9 @@ export default function ChapterThree() {
         {rooms.map((room, i) => (
           <div key={room.num}>
             <RoomCard room={room} index={i} />
-            <FloorOrnament />
+            {i < rooms.length - 1 && <FloorOrnament />}
           </div>
         ))}
-        <PhantomRoom />
       </div>
     </section>
   );

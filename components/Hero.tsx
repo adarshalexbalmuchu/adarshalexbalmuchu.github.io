@@ -1,9 +1,73 @@
 'use client';
 
-import { motion } from 'framer-motion';
+import { useRef, type MouseEvent } from 'react';
+import { motion, useMotionValue, useSpring } from 'framer-motion';
 import CelestialInkShader from '@/components/ui/celestial-ink-shader';
 
 const NAME = 'Adarsh Alex Balmuchu';
+
+/* Letters lift and catch the light when the cursor passes over them */
+function InkLetter({ char, index }: { char: string; index: number }) {
+  return (
+    <motion.span
+      initial={{ opacity: 0, y: 18 }}
+      animate={{ opacity: 1, y: 0 }}
+      whileHover={{
+        y: -10,
+        scale: 1.12,
+        textShadow: '0 0 28px rgba(232,100,122,0.9), 0 0 60px rgba(255,214,150,0.4)',
+        transition: { type: 'spring', stiffness: 400, damping: 12 },
+      }}
+      transition={{
+        duration: 0.4,
+        delay: index * 0.04,
+        ease: 'easeOut',
+      }}
+      style={{ display: 'inline-block', whiteSpace: char === ' ' ? 'pre' : 'normal' }}
+    >
+      {char}
+    </motion.span>
+  );
+}
+
+/* CTA that leans toward the cursor and snaps back on leave */
+function MagneticCTA() {
+  const ref = useRef<HTMLDivElement>(null);
+  const x = useMotionValue(0);
+  const y = useMotionValue(0);
+  const sx = useSpring(x, { stiffness: 200, damping: 15 });
+  const sy = useSpring(y, { stiffness: 200, damping: 15 });
+
+  const onMove = (e: MouseEvent<HTMLDivElement>) => {
+    if (!ref.current) return;
+    const rect = ref.current.getBoundingClientRect();
+    x.set((e.clientX - rect.left - rect.width / 2) * 0.35);
+    y.set((e.clientY - rect.top - rect.height / 2) * 0.45);
+  };
+  const onLeave = () => {
+    x.set(0);
+    y.set(0);
+  };
+
+  return (
+    <div ref={ref} onMouseMove={onMove} onMouseLeave={onLeave} style={{ padding: 18, margin: -18 }}>
+      <motion.a
+        href="#chapter-1"
+        style={{
+          x: sx,
+          y: sy,
+          border: '1px solid rgba(255,255,255,0.2)',
+          background: 'rgba(255,255,255,0.08)',
+          color: '#f5f0eb',
+          fontFamily: 'var(--font-inter)',
+        }}
+        className="w-full max-w-xs mx-auto md:w-auto block md:inline-block px-8 py-3 rounded-full text-base font-medium tracking-widest uppercase backdrop-blur-sm hover:shadow-[0_0_24px_6px_rgba(232,100,122,0.35)] hover:border-[rgba(232,100,122,0.45)] transition-[box-shadow,border-color] duration-300 text-center"
+      >
+        Enter my world
+      </motion.a>
+    </div>
+  );
+}
 
 export default function Hero() {
   return (
@@ -24,26 +88,14 @@ export default function Hero() {
       />
 
       <div className="relative z-10 text-center px-6 -mt-12 w-full">
-        {/* Name — letter by letter */}
+        {/* Name — letter by letter, alive under the cursor */}
         <h1
           className="font-cormorant text-4xl md:text-7xl font-light text-white drop-shadow-lg"
           style={{ letterSpacing: '0.04em' }}
           aria-label={NAME}
         >
           {NAME.split('').map((char, i) => (
-            <motion.span
-              key={i}
-              initial={{ opacity: 0, y: 18 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{
-                duration: 0.4,
-                delay: i * 0.04,
-                ease: 'easeOut',
-              }}
-              style={{ display: 'inline-block', whiteSpace: char === ' ' ? 'pre' : 'normal' }}
-            >
-              {char}
-            </motion.span>
+            <InkLetter key={i} char={char} index={i} />
           ))}
         </h1>
 
@@ -65,18 +117,7 @@ export default function Hero() {
           animate={{ opacity: 1 }}
           transition={{ duration: 0.6, delay: NAME.length * 0.04 + 0.6 }}
         >
-          <a
-            href="#chapter-1"
-            className="w-full max-w-xs mx-auto md:w-auto block md:inline-block px-8 py-3 rounded-full text-base font-medium tracking-widest uppercase backdrop-blur-sm hover:shadow-[0_0_20px_4px_rgba(236,72,153,0.35)] transition-all duration-300 text-center"
-            style={{
-              border: '1px solid rgba(255,255,255,0.2)',
-              background: 'rgba(255,255,255,0.08)',
-              color: '#f5f0eb',
-              fontFamily: 'var(--font-inter)',
-            }}
-          >
-            Enter my world
-          </a>
+          <MagneticCTA />
         </motion.div>
       </div>
 
