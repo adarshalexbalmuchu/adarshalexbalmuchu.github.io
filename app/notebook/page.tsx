@@ -1,4 +1,5 @@
 import Link from 'next/link';
+import CelestialBackdrop from '@/components/ui/CelestialBackdrop';
 
 const posts = [
   { title: 'On noticing things',                   tag: 'Observations'     },
@@ -9,9 +10,11 @@ const posts = [
 export default function NotebookPage() {
   return (
     <main
-      className="min-h-screen px-4 md:px-20 py-12 md:py-24"
-      style={{ background: 'var(--p-bg)', color: 'var(--p-text)' }}
+      className="relative min-h-screen"
+      style={{ background: 'var(--p-bg)', color: 'var(--p-text)', fontFamily: 'var(--font-inter), sans-serif' }}
     >
+      <CelestialBackdrop />
+      <div className="relative z-10 px-4 md:px-20 py-12 md:py-24">
       {/* Back link */}
       <Link
         href="/"
@@ -23,7 +26,6 @@ export default function NotebookPage() {
           textTransform: 'uppercase',
           color: 'rgba(245,240,235,0.4)',
         }}
-        onMouseEnter={undefined}
       >
         ← Back
       </Link>
@@ -38,7 +40,7 @@ export default function NotebookPage() {
       >
         These aren't articles.
         <br />
-        <span style={{ color: '#e85d75' }}>They're thoughts that got too long for my head.</span>
+        <span style={{ color: 'var(--p-accent)' }}>They're thoughts that got too long for my head.</span>
       </h1>
 
       {/* Body copy */}
@@ -83,7 +85,7 @@ export default function NotebookPage() {
                 style={{
                   fontFamily: 'var(--font-inter)',
                   fontSize: '0.6rem',
-                  color: '#e85d75',
+                  color: 'var(--p-accent)',
                 }}
               >
                 {tag}
@@ -99,9 +101,9 @@ export default function NotebookPage() {
               <span
                 style={{
                   display: 'inline-block',
-                  background: 'rgba(232,93,117,0.1)',
-                  border: '1px solid rgba(232,93,117,0.3)',
-                  color: '#e85d75',
+                  background: 'rgba(232,100,122,0.1)',
+                  border: '1px solid rgba(232,100,122,0.3)',
+                  color: 'var(--p-accent)',
                   fontSize: 11,
                   textTransform: 'uppercase',
                   letterSpacing: '0.15em',
@@ -115,6 +117,7 @@ export default function NotebookPage() {
             </div>
           </div>
         ))}
+      </div>
       </div>
     </main>
   );

@@ -8,7 +8,6 @@ export default function Footer() {
     <footer
       id="footer"
       className="flex flex-col relative"
-      style={{ background: '#080b14' }}
     >
       {/* Full-width image panel — no gap above */}
       <div className="relative w-full" style={{ height: 'clamp(320px, 70vh, 80vh)', marginTop: 0 }}>
@@ -22,12 +21,12 @@ export default function Footer() {
         />
         <div
           className="absolute inset-0"
-          style={{ background: 'linear-gradient(to bottom, transparent 40%, #080b14 100%)' }}
+          style={{ background: 'linear-gradient(to bottom, rgba(13,10,26,0.85) 0%, transparent 35%, transparent 45%, var(--p-bg-deep) 100%)' }}
         />
       </div>
 
       {/* Main content */}
-      <div className="flex flex-col items-center justify-center px-4 md:px-8 relative" style={{ paddingTop: 40, paddingBottom: 80 }}>
+      <div className="flex flex-col items-center justify-center px-4 md:px-8 relative" style={{ paddingTop: 40, paddingBottom: 80, background: 'var(--p-bg-deep)' }}>
         <div className="text-center w-full">
 
           <h2
@@ -48,7 +47,7 @@ export default function Footer() {
               color: 'var(--p-muted)',
               marginBottom: 24,
             }}
-            onMouseEnter={(e) => (e.currentTarget.style.color = '#e85d75')}
+            onMouseEnter={(e) => (e.currentTarget.style.color = 'var(--p-accent)')}
             onMouseLeave={(e) => (e.currentTarget.style.color = 'var(--p-muted)')}
           >
             adarshalex.balmuchui23@iimranchi.ac.in

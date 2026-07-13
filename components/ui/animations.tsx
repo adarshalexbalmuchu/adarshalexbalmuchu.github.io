@@ -3,7 +3,9 @@
 import { motion, useInView } from 'framer-motion';
 import { useRef, useEffect, useState, ReactNode } from 'react';
 
-// Curtain reveal — line slides up from behind a hidden overflow
+// Curtain reveal — line slides up from behind a hidden overflow.
+// The in-view check lives on the OUTER span: the inner one starts translated
+// outside the clip box, so an observer attached to it would never fire.
 export function RevealLine({
   children,
   delay = 0,
@@ -15,13 +17,15 @@ export function RevealLine({
   className?: string;
   style?: React.CSSProperties;
 }) {
+  const ref = useRef<HTMLSpanElement>(null);
+  const isInView = useInView(ref, { once: true, margin: '-30px' });
+
   return (
-    <span style={{ display: 'block', overflow: 'hidden' }} className={className}>
+    <span ref={ref} style={{ display: 'block', overflow: 'hidden' }} className={className}>
       <motion.span
         style={{ display: 'block', ...style }}
         initial={{ y: '110%' }}
-        whileInView={{ y: 0 }}
-        viewport={{ once: true, margin: '-30px' }}
+        animate={isInView ? { y: 0 } : undefined}
         transition={{ duration: 0.8, delay, ease: [0.33, 1, 0.68, 1] }}
       >
         {children}

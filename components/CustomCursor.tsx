@@ -77,7 +77,7 @@ export default function CustomCursor() {
         width: 10,
         height: 10,
         borderRadius: '50%',
-        background: '#e85d75',
+        background: 'var(--p-accent)',
         opacity: 0.4,
         pointerEvents: 'none',
         zIndex: 9999,
