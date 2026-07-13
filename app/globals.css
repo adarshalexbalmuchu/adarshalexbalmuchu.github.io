@@ -144,8 +144,7 @@ html { scroll-behavior: smooth; }
   --p-gold-dim: rgba(201, 163, 107, 0.35);
   --p-gold-line: rgba(201, 163, 107, 0.18);
   --p-muted: rgba(245, 240, 235, 0.45);
-  --font-cormorant: 'Cormorant Garamond', serif;
-  --font-inter: 'Inter', sans-serif;
+  /* --font-cormorant and --font-inter are provided by next/font in app/layout.tsx */
 }
 
 .portfolio-root {
@@ -163,6 +162,9 @@ html { scroll-behavior: smooth; }
   .portfolio-root button,
   .portfolio-root [role="button"] {
     cursor: auto;
+  }
+  .cursor-fx {
+    display: none;
   }
 }
 
@@ -249,4 +251,52 @@ html { scroll-behavior: smooth; }
   .celestial-backdrop * {
     animation: none !important;
   }
+}
+
+/* ── Global thematic details ── */
+
+/* selecting text leaves rose ink */
+::selection {
+  background: rgba(232, 100, 122, 0.4);
+  color: #fff;
+}
+
+/* a thin brass-and-rose scrollbar for the night sky */
+html {
+  scrollbar-width: thin;
+  scrollbar-color: rgba(232, 100, 122, 0.4) #0d0a1a;
+}
+::-webkit-scrollbar {
+  width: 10px;
+}
+::-webkit-scrollbar-track {
+  background: #0d0a1a;
+}
+::-webkit-scrollbar-thumb {
+  background: linear-gradient(180deg, rgba(201, 163, 107, 0.5), rgba(232, 100, 122, 0.5));
+  border-radius: 5px;
+  border: 2px solid #0d0a1a;
+}
+
+/* keyboard visitors get a visible star to follow */
+:focus-visible {
+  outline: 1px solid var(--p-accent);
+  outline-offset: 3px;
+  border-radius: 2px;
+}
+
+/* equalizer bars on the ambient sound toggle */
+@keyframes eqBar {
+  0%, 100% { transform: scaleY(0.3); }
+  50%      { transform: scaleY(1); }
+}
+
+/* shimmering ink for accent words in chapter headlines */
+.ink-shimmer {
+  background: linear-gradient(135deg, var(--p-accent), #ff8a9e, var(--p-accent));
+  background-size: 200% 100%;
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: shimmerText 3s ease-in-out infinite;
 }

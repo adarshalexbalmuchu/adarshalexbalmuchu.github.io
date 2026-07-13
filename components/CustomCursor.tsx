@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useRef } from 'react';
 
 export default function CustomCursor() {
   const cursorRef = useRef<HTMLDivElement>(null);
@@ -10,12 +10,10 @@ export default function CustomCursor() {
   const ringPos = useRef({ x: 0, y: 0 });
   const rafRef = useRef<number>(0);
   const hovering = useRef(false);
-  const [isTouch, setIsTouch] = useState(true);
 
   useEffect(() => {
-    const touch = window.matchMedia('(hover: none)').matches;
-    setIsTouch(touch);
-    if (touch) return;
+    // touch devices keep the native cursor; the elements are hidden via CSS
+    if (window.matchMedia('(hover: none)').matches) return;
 
     const cursor = cursorRef.current;
     const ring = ringRef.current;
@@ -78,14 +76,13 @@ export default function CustomCursor() {
       window.removeEventListener('mouseover', onMouseOver);
       window.removeEventListener('mouseout', onMouseOut);
     };
-  }, [isTouch]);
-
-  if (isTouch) return null;
+  }, []);
 
   return (
     <>
       <div
         ref={cursorRef}
+        className="cursor-fx"
         style={{
           position: 'fixed',
           top: 0,
@@ -103,6 +100,7 @@ export default function CustomCursor() {
       />
       <div
         ref={ringRef}
+        className="cursor-fx"
         style={{
           position: 'fixed',
           top: 0,

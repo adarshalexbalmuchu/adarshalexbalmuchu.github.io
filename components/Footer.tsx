@@ -1,9 +1,24 @@
 'use client';
 
+import { useState } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 
+const EMAIL = 'adarshalex.balmuchui23@iimranchi.ac.in';
+
 export default function Footer() {
+  const [copied, setCopied] = useState(false);
+
+  const copyEmail = async () => {
+    try {
+      await navigator.clipboard.writeText(EMAIL);
+      setCopied(true);
+      setTimeout(() => setCopied(false), 2000);
+    } catch {
+      // clipboard unavailable — the mailto link still works
+    }
+  };
+
   return (
     <footer
       id="footer"
@@ -31,27 +46,60 @@ export default function Footer() {
 
           <h2
             className="font-cormorant text-3xl md:text-7xl font-light"
-            style={{ color: 'var(--p-text)', letterSpacing: '0.02em', lineHeight: 1.15, marginBottom: 24 }}
+            style={{ color: 'var(--p-text)', letterSpacing: '0.02em', lineHeight: 1.15, marginBottom: 28 }}
           >
-            Let's build something.
+            Let&rsquo;s build something.
           </h2>
 
+          {/* The email is the centerpiece — serif, with an underline that draws itself */}
           <a
-            href="mailto:adarshalex.balmuchui23@iimranchi.ac.in"
-            className="inline-block transition-colors duration-300 break-all"
+            href={`mailto:${EMAIL}`}
+            className="group inline-block break-all"
             style={{
-              fontFamily: 'var(--font-inter)',
-              fontSize: '0.875rem',
+              fontFamily: 'var(--font-cormorant)',
+              fontSize: 'clamp(1.05rem, 2.6vw, 1.7rem)',
               fontWeight: 300,
-              letterSpacing: '0.05em',
-              color: 'var(--p-muted)',
-              marginBottom: 24,
+              fontStyle: 'italic',
+              letterSpacing: '0.02em',
+              color: 'rgba(245,240,235,0.8)',
+              transition: 'color 0.3s ease, text-shadow 0.3s ease',
             }}
-            onMouseEnter={(e) => (e.currentTarget.style.color = 'var(--p-accent)')}
-            onMouseLeave={(e) => (e.currentTarget.style.color = 'var(--p-muted)')}
+            onMouseEnter={(e) => {
+              e.currentTarget.style.color = 'var(--p-accent)';
+              e.currentTarget.style.textShadow = '0 0 24px rgba(232,100,122,0.35)';
+            }}
+            onMouseLeave={(e) => {
+              e.currentTarget.style.color = 'rgba(245,240,235,0.8)';
+              e.currentTarget.style.textShadow = 'none';
+            }}
           >
-            adarshalex.balmuchui23@iimranchi.ac.in
+            {EMAIL}
+            <span
+              aria-hidden
+              className="block h-px mt-1 w-0 group-hover:w-full transition-all duration-500 mx-auto"
+              style={{ background: 'linear-gradient(90deg, var(--p-gold), var(--p-accent))' }}
+            />
           </a>
+
+          {/* copy to clipboard */}
+          <div style={{ marginTop: 14, marginBottom: 28 }}>
+            <button
+              onClick={copyEmail}
+              className="uppercase transition-all duration-300"
+              style={{
+                fontFamily: 'var(--font-inter)',
+                fontSize: '0.6rem',
+                letterSpacing: '0.3em',
+                padding: '6px 16px',
+                borderRadius: 20,
+                border: `1px solid ${copied ? 'rgba(201,163,107,0.5)' : 'rgba(232,100,122,0.25)'}`,
+                background: copied ? 'rgba(201,163,107,0.08)' : 'rgba(232,100,122,0.06)',
+                color: copied ? 'var(--p-gold)' : 'rgba(245,240,235,0.5)',
+              }}
+            >
+              {copied ? 'Copied ✦' : 'Copy email'}
+            </button>
+          </div>
 
           {/* Social links — vertical on mobile, horizontal on desktop */}
           <div
@@ -74,20 +122,32 @@ export default function Footer() {
                 href={href}
                 target={external ? '_blank' : undefined}
                 rel={external ? 'noopener noreferrer' : undefined}
-                className="transition-colors duration-300"
+                className="transition-all duration-300"
                 style={{ color: 'rgba(245,240,235,0.35)' }}
-                onMouseEnter={(e) => (e.currentTarget.style.color = 'var(--p-text)')}
-                onMouseLeave={(e) => (e.currentTarget.style.color = 'rgba(245,240,235,0.35)')}
+                onMouseEnter={(e) => {
+                  e.currentTarget.style.color = 'var(--p-text)';
+                  e.currentTarget.style.letterSpacing = '0.35em';
+                }}
+                onMouseLeave={(e) => {
+                  e.currentTarget.style.color = 'rgba(245,240,235,0.35)';
+                  e.currentTarget.style.letterSpacing = '0.25em';
+                }}
               >
                 {label}
               </a>
             ))}
             <Link
               href="/notebook"
-              className="transition-colors duration-300"
+              className="transition-all duration-300"
               style={{ color: 'rgba(245,240,235,0.35)' }}
-              onMouseEnter={(e) => (e.currentTarget.style.color = 'var(--p-text)')}
-              onMouseLeave={(e) => (e.currentTarget.style.color = 'rgba(245,240,235,0.35)')}
+              onMouseEnter={(e) => {
+                e.currentTarget.style.color = 'var(--p-text)';
+                e.currentTarget.style.letterSpacing = '0.35em';
+              }}
+              onMouseLeave={(e) => {
+                e.currentTarget.style.color = 'rgba(245,240,235,0.35)';
+                e.currentTarget.style.letterSpacing = '0.25em';
+              }}
             >
               The Notebook
             </Link>
