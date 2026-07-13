@@ -23,7 +23,7 @@ type Star = {
   gold: boolean;
 };
 
-const STARS: Star[] = Array.from({ length: 110 }, (_, i) => ({
+const STARS: Star[] = Array.from({ length: 80 }, (_, i) => ({
   left: `${r2(seeded(i) * 100)}%`,
   top: `${r2(seeded(i + 500) * 100)}%`,
   size: seeded(i + 1000) > 0.85 ? 2 : 1,
@@ -61,6 +61,7 @@ export default function CelestialBackdrop() {
           background:
             'radial-gradient(circle, rgba(232,100,122,0.07) 0%, rgba(120,40,90,0.05) 40%, transparent 70%)',
           filter: 'blur(60px)',
+          willChange: 'transform',
           animation: 'nebulaDriftA 70s ease-in-out infinite',
         }}
       />
@@ -76,6 +77,7 @@ export default function CelestialBackdrop() {
           background:
             'radial-gradient(circle, rgba(90,70,180,0.06) 0%, rgba(40,20,80,0.05) 45%, transparent 72%)',
           filter: 'blur(70px)',
+          willChange: 'transform',
           animation: 'nebulaDriftB 90s ease-in-out infinite',
         }}
       />
@@ -91,6 +93,7 @@ export default function CelestialBackdrop() {
           background:
             'radial-gradient(circle, rgba(201,163,107,0.035) 0%, transparent 65%)',
           filter: 'blur(80px)',
+          willChange: 'transform',
           animation: 'nebulaDriftA 110s ease-in-out infinite reverse',
         }}
       />

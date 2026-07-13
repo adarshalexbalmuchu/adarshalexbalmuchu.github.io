@@ -1,6 +1,6 @@
 'use client';
 
-import { useRef, useState, type MouseEvent } from 'react';
+import { useRef, type MouseEvent } from 'react';
 import { motion, useScroll, useTransform } from 'framer-motion';
 import { RevealLine, ScrambleText, FadeUp } from '@/components/ui/animations';
 
@@ -59,8 +59,6 @@ function FloorOrnament() {
 /* ── A single room in the corridor ── */
 function RoomCard({ room, index }: { room: Room; index: number }) {
   const ref = useRef<HTMLDivElement>(null);
-  const [mouse, setMouse] = useState({ x: 50, y: 50 });
-  const [hover, setHover] = useState(false);
 
   // parallax drift of the giant ghosted numeral
   const { scrollYProgress } = useScroll({
@@ -71,32 +69,33 @@ function RoomCard({ room, index }: { room: Room; index: number }) {
 
   const isOdd = index % 2 === 1;
 
+  // the lantern follows the mouse through CSS variables — writing them
+  // directly avoids re-rendering the whole room on every pointer move
   const onMove = (e: MouseEvent<HTMLDivElement>) => {
     const rect = e.currentTarget.getBoundingClientRect();
-    setMouse({
-      x: ((e.clientX - rect.left) / rect.width) * 100,
-      y: ((e.clientY - rect.top) / rect.height) * 100,
-    });
+    e.currentTarget.style.setProperty('--mx', `${((e.clientX - rect.left) / rect.width) * 100}%`);
+    e.currentTarget.style.setProperty('--my', `${((e.clientY - rect.top) / rect.height) * 100}%`);
   };
 
   return (
     <motion.div
       ref={ref}
       onMouseMove={onMove}
-      onMouseEnter={() => setHover(true)}
-      onMouseLeave={() => setHover(false)}
       initial="closed"
       whileInView="open"
       viewport={{ once: true, amount: 0.35 }}
-      className="relative w-full overflow-hidden"
-      style={{
-        minHeight: 'min(78vh, 640px)',
-        background: hover
-          ? `radial-gradient(560px circle at ${mouse.x}% ${mouse.y}%, rgba(232,100,122,0.07), transparent 65%)`
-          : 'transparent',
-        transition: 'background 0.4s ease',
-      }}
+      className="group/room relative w-full overflow-hidden"
+      style={{ minHeight: 'min(78vh, 640px)' }}
     >
+      {/* mouse lantern — fades in on hover, follows via CSS vars */}
+      <div
+        aria-hidden
+        className="pointer-events-none absolute inset-0 opacity-0 group-hover/room:opacity-100 transition-opacity duration-500"
+        style={{
+          background:
+            'radial-gradient(560px circle at var(--mx, 50%) var(--my, 50%), rgba(232,100,122,0.07), transparent 65%)',
+        }}
+      />
       {/* inset hairline frame — architectural */}
       <div
         aria-hidden
