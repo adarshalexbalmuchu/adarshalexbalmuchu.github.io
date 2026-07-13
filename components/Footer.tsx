@@ -65,7 +65,7 @@ export default function Footer() {
             }}
           >
             {[
-              { label: 'LinkedIn',  href: 'https://linkedin.com',                    external: true },
+              { label: 'LinkedIn',  href: 'https://www.linkedin.com/in/adarshalexbalmuchu/', external: true },
               { label: 'GitHub',    href: 'https://github.com/adarshalexbalmuchu',   external: true },
               { label: 'Portfolio', href: '#hero',                                   external: false },
             ].map(({ label, href, external }) => (
