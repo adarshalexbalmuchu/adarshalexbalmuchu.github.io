@@ -10,8 +10,11 @@ const chapters = [
   { id: 'chapter-5', label: '___' },
 ];
 
+/* The nav is a small constellation: each chapter is a star on a faint
+   line of light that fills as the reader travels down the story. */
 export default function ChapterNav() {
   const [active, setActive] = useState<string>('');
+  const [progress, setProgress] = useState(0);
 
   useEffect(() => {
     const observers: IntersectionObserver[] = [];
@@ -30,14 +33,51 @@ export default function ChapterNav() {
       observers.push(observer);
     });
 
-    return () => observers.forEach((o) => o.disconnect());
+    const onScroll = () => {
+      const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+      setProgress(docHeight > 0 ? window.scrollY / docHeight : 0);
+    };
+    window.addEventListener('scroll', onScroll, { passive: true });
+    onScroll();
+
+    return () => {
+      observers.forEach((o) => o.disconnect());
+      window.removeEventListener('scroll', onScroll);
+    };
   }, []);
 
   return (
     <nav
       className="hidden md:flex fixed right-6 top-1/2 -translate-y-1/2 z-50 flex-col items-end gap-6"
       aria-label="Chapter navigation"
+      style={{ position: 'fixed' }}
     >
+      {/* rail of light behind the stars */}
+      <span
+        aria-hidden
+        className="absolute pointer-events-none"
+        style={{
+          right: 2.5,
+          top: -14,
+          bottom: -14,
+          width: 1,
+          background: 'rgba(245,240,235,0.08)',
+        }}
+      />
+      <span
+        aria-hidden
+        className="absolute pointer-events-none"
+        style={{
+          right: 2.5,
+          top: -14,
+          width: 1,
+          height: `calc(${Math.min(progress, 1) * 100}% + ${Math.min(progress, 1) * 28 - 14}px)`,
+          background: 'linear-gradient(to bottom, var(--p-gold), var(--p-accent))',
+          boxShadow: '0 0 8px rgba(232,100,122,0.5)',
+          transition: 'height 0.15s linear',
+        }}
+      />
+
       {chapters.map(({ id, label }, i) => {
         const isActive = active === id;
         return (
@@ -48,7 +88,7 @@ export default function ChapterNav() {
           >
             {/* Label — fades in on hover */}
             <span
-              className="opacity-0 group-hover:opacity-100 transition-opacity duration-300 text-right"
+              className="opacity-0 group-hover:opacity-100 group-hover:-translate-x-1 transition-all duration-300 text-right"
               style={{
                 fontFamily: 'var(--font-inter)',
                 fontSize: '0.6rem',
@@ -74,6 +114,19 @@ export default function ChapterNav() {
             >
               {String(i + 1).padStart(2, '0')}
             </span>
+
+            {/* Star */}
+            <span
+              className="transition-all duration-300"
+              style={{
+                width: isActive ? 6 : 4,
+                height: isActive ? 6 : 4,
+                marginRight: isActive ? -1.5 : -0.5,
+                borderRadius: '50%',
+                background: isActive ? 'var(--p-accent)' : 'rgba(245,240,235,0.35)',
+                boxShadow: isActive ? '0 0 10px rgba(232,100,122,0.8)' : 'none',
+              }}
+            />
           </a>
         );
       })}
