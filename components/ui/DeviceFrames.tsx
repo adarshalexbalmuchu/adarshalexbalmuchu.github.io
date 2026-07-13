@@ -227,7 +227,6 @@ export function TabletFrame({
    max-width 140px
    ═══════════════════════════════════════════ */
 export function MobileFrame({
-  url,
   children,
   glowColor,
 }: {

@@ -138,7 +138,7 @@ export default function ChapterFour() {
         <RevealLine delay={0.1}>Before the strategy decks</RevealLine>
         <RevealLine delay={0.2}>there was Hindustani</RevealLine>
         <RevealLine delay={0.3}>
-          <span style={{ color: 'var(--p-accent)' }}>classical music.</span>
+          <span className="ink-shimmer">classical music.</span>
         </RevealLine>
       </h2>
 

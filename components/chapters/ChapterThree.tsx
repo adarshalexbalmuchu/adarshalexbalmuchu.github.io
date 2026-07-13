@@ -416,7 +416,7 @@ export default function ChapterThree() {
         <RevealLine delay={0.1}>I walked into rooms</RevealLine>
         <RevealLine delay={0.2}>I wasn&apos;t expected to win.</RevealLine>
         <RevealLine delay={0.3}>
-          <span style={{ color: 'var(--p-accent)' }}>I won anyway.</span>
+          <span className="ink-shimmer">I won anyway.</span>
         </RevealLine>
       </h2>
 
